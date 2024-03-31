@@ -52,7 +52,7 @@ async function solve() {
 		while (solutions.length < 1) {
 			depth++;
 			if (depth > customValues.maxDepth) break;
-			solutions = findSolutions(depth, customDictionary);
+			solutions = await findSolutions(depth, customDictionary);
 		}
 	}
 	else { // normal, standard option
@@ -62,9 +62,9 @@ async function solve() {
 		while (solutions.length < 1) {
 			depth++;
 			if (depth > 4) break;
-			solutions = findSolutions(depth, scrabbleDictionary);
+			solutions = await findSolutions(depth, scrabbleDictionary);
 			if (depth > 2 && solutions.length < 1) {
-				solutions = findSolutions(depth - 1, badDictionary);
+				solutions = await findSolutions(depth - 1, badDictionary);
 			} 
 		}
 	}
@@ -195,15 +195,15 @@ function isSolution(words) {
 	if (lettersUsed.size === 12) return true;
 }
 
-function findSolutions(depth, dictionary) {
+async function findSolutions(depth, dictionary) {
 	const solutions = [];
-	alphabetArray.forEach((letter) => {
-		findSolutionHelper(solutions, [], depth, dictionary, letter);
-	});
+	for (let i=0;i<alphabetArray.length;i++) {
+		await findSolutionHelper(solutions, [], depth, dictionary, alphabetArray[i]);
+	}
 	return solutions;
 }
 
-function findSolutionHelper(solutionArray, currSolution, depth, dictionary, startingLetter) {
+async function findSolutionHelper(solutionArray, currSolution, depth, dictionary, startingLetter) {
 	if (depth === 0) {
 		if (isSolution(currSolution)) solutionArray.push([...currSolution]);
 		return;
@@ -213,12 +213,13 @@ function findSolutionHelper(solutionArray, currSolution, depth, dictionary, star
 	const wordOptions = dictionary[startingLetter];
 	if (!wordOptions) return;
 
-	wordOptions.forEach((word) => {
+	for (let i=0;i<wordOptions.length;i++) {
+		const word = wordOptions[i];
 		currSolution.push(word);
 
-		findSolutionHelper(solutionArray, currSolution, depth-1, dictionary, word[word.length-1]);
+		await findSolutionHelper(solutionArray, currSolution, depth-1, dictionary, word[word.length-1]);
 		currSolution.pop();
-	});
+	}
 }
 
 function displaySolutions(solutions) {

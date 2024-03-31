@@ -15,6 +15,7 @@
 			<h2>Solver</h2>
 		</header>
 		<main>
+			<div id="click-blocker" class="unblocked"></div>
 			<p id="current-solution"></p>
 			<div class="boxContainer">
 				<div class="insideBox"></div>
@@ -49,7 +50,7 @@
 			</div>
 
 			<button onclick="startSolve()">Solve</button>
-			<button id="todayPuzzle" onclick="getTodaysPuzzle()">Get Puzzle</button>
+			<button id="todayPuzzle" onclick="getTodaysPuzzle()">Get Today's Puzzle</button>
 			<div id="advancedOptions">
 				<label for="minDepth">Min Depth</label>
 				<input name="minDepth" id="minDepth" type="number">

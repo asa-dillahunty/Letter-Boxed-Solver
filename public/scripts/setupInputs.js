@@ -56,11 +56,22 @@ for (let i=0;i<dictionaryList.length;i++) {
 }
 dictSelect.innerHTML = optionBlob;
 
+function blockClicks() {
+	const blocker = document.getElementById("click-blocker");
+	blocker.classList.remove("unblocked");
+}
+
+function unblockClicks() {
+	const blocker = document.getElementById("click-blocker");
+	blocker.classList.add("unblocked");
+}
+
 function getTodaysPuzzle () {
+	blockClicks();
 	// TODO:
 	// I should probably cache this somehow
 
-	const customServer = "https://letterboxed.asadillahunty.com/api/"
+	const customServer = "https://us-central1-letterboxedsolver.cloudfunctions.net/api/api"
 	fetch(customServer).then(response => {
 		if (!response.ok) {
 			throw new Error('Network response was not ok');
@@ -77,8 +88,9 @@ function getTodaysPuzzle () {
 				inputs[i*3 + j].classList.remove("isEmpty");
 			}
 		}
-		
+		unblockClicks();
 	}).catch((error) => {
+		unblockClicks();
 		console.log(error);
 	});
 }
