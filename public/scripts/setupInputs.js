@@ -84,11 +84,12 @@ function getTodaysPuzzle () {
 			// go through all the sides
 			for (let j=0;j<data.sides[i].length;j++) {
 				// go through every letter
-				inputs[i*3 + j].value = data.sides[i][j];
+				inputs[i*3 + j].value = data.sides[i][j].toLowerCase();
 				inputs[i*3 + j].classList.remove("isEmpty");
 			}
 		}
 		unblockClicks();
+		displaySelectSolve();
 	}).catch((error) => {
 		unblockClicks();
 		console.log(error);
