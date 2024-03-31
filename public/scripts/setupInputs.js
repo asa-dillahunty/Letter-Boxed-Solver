@@ -60,7 +60,7 @@ function getTodaysPuzzle () {
 	// TODO:
 	// I should probably cache this somehow
 
-	const customServer = "http://letterboxed.asadillahunty.com/api/"
+	const customServer = "https://letterboxed.asadillahunty.com/api/"
 	fetch(customServer).then(response => {
 		if (!response.ok) {
 			throw new Error('Network response was not ok');
