@@ -90,7 +90,7 @@ function getTodaysPuzzle () {
 	blockClicks();
 	gameData.loading = true;
 
-	const customServer = "https://us-central1-letterboxedsolver.cloudfunctions.net/api/api"
+	const customServer = "https://letterboxed.asadillahunty.com/api"
 	fetch(customServer).then(response => {
 		if (!response.ok) {
 			throw new Error('Network response was not ok');

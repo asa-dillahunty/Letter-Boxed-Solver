@@ -29,8 +29,12 @@
         }
       },
       {
-        "source": "**",
+        "source": "/",
         "destination": "/index.html"
+      },
+      {
+        "source": "**",
+        "destination": "/404.html"
       }
     ]
   }
