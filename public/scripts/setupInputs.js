@@ -77,11 +77,11 @@ function getTodaysPuzzle () {
 		//  	maybe just confirm it's loaded in?
 
 		// reset the sides
-		for (let i=0;i<data.sides.length;i++) {
+		for (let i=0;i<gameData.sides.length;i++) {
 			// go through all the sides
-			for (let j=0;j<data.sides[i].length;j++) {
+			for (let j=0;j<gameData.sides[i].length;j++) {
 				// go through every letter
-				inputs[i*3 + j].value = data.sides[i][j].toLowerCase();
+				inputs[i*3 + j].value = gameData.sides[i][j].toLowerCase();
 				inputs[i*3 + j].classList.remove("isEmpty");
 			}
 		}
