@@ -127,10 +127,10 @@ function getIsTodaysPuzzle(letters) {
 	];
 
 	const NYTGameLettersSorted = [
-		gameData.sides[0].toSorted(),
-		gameData.sides[1].toSorted(),
-		gameData.sides[2].toSorted(),
-		gameData.sides[3].toSorted()
+		gameData.sides[0].toLowerCase().split("").sort(),
+		gameData.sides[1].toLowerCase().split("").sort(),
+		gameData.sides[2].toLowerCase().split("").sort(),
+		gameData.sides[3].toLowerCase().split("").sort()
 	];
 
 	inputLettersSorted.sort();
