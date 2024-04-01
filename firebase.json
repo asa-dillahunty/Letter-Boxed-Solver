@@ -23,6 +23,12 @@
     ],
     "rewrites": [
       {
+        "source": "/api",
+        "function": {
+          "functionId": "api"
+        }
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

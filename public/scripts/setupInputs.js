@@ -70,7 +70,7 @@ function unblockClicks() {
 }
 
 function getTodaysPuzzle () {
-	clearDrawing();
+	displaySelectSolve();
 	if (gameData.loaded && gameData.expiration < Date.now()) {
 		// TODO:
 		//  	consider alerting the user if I'm not changing anything
