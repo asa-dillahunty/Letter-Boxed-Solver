@@ -1,4 +1,5 @@
 function startSolve() {
+	clearDrawing();
 	const outputDivHeader = document.getElementById("solutionBoxHeader");
 	outputDivHeader.textContent = "LOADING ...";
 	// unhide ghost
@@ -44,6 +45,7 @@ async function solve() {
 	let depth = 1; // start with a depth of 2 (after the ++)
 	let solutions = [];
 	const customValues = getCustomValues();
+	const isTodaysPuzzle = getIsTodaysPuzzle(letters);
 	if (isNormal !== undefined && isNormal === false && customValues !== false) {
 		// do the static option
 		// grab depth from the user	
@@ -53,6 +55,12 @@ async function solve() {
 			depth++;
 			if (depth > customValues.maxDepth) break;
 			solutions = await findSolutions(depth, customDictionary);
+		}
+	}
+	else if (isTodaysPuzzle) { // use todays dictionary
+		while (solutions.length < 1 && depth < 5) {
+			depth++;
+			solutions = await findSolutions(depth, gameData.dictionary);
 		}
 	}
 	else { // normal, standard option
@@ -105,6 +113,34 @@ function getCustomValues() {
 	if (customValues.minDepth === '') return false;
 	if (customValues.dictionaryName === '') return false;
 	return customValues;
+}
+
+function getIsTodaysPuzzle(letters) {
+	// if exit here - this may not be true, but we don't have the dictionary anyway
+	if (!gameData || !gameData.loaded || !gameData.sides) return false;
+
+	const inputLettersSorted = [
+		letters.slice(0,3).sort(),
+		letters.slice(3,6).sort(),
+		letters.slice(6,9).sort(),
+		letters.slice(9).sort()
+	];
+
+	const NYTGameLettersSorted = [
+		gameData.sides[0].toSorted(),
+		gameData.sides[1].toSorted(),
+		gameData.sides[2].toSorted(),
+		gameData.sides[3].toSorted()
+	];
+
+	inputLettersSorted.sort();
+	NYTGameLettersSorted.sort();
+
+	for (let i=0;i<4;i++) {
+		if (!inputLettersSorted[i].every((value,index) => value === NYTGameLettersSorted[i][index])) return false;
+	}
+	
+	return true;
 }
 
 async function getDictionary(letterSet, forbiddenSequences, filePath) {

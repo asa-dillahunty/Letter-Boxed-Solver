@@ -1,5 +1,8 @@
 // Get all input fields
 const inputs = document.querySelectorAll('.letter-input');
+const gameData = {
+	loaded:false,
+}
 
 // Add input event listener to each input field
 inputs.forEach((input, index) => {
@@ -67,9 +70,25 @@ function unblockClicks() {
 }
 
 function getTodaysPuzzle () {
+	clearDrawing();
+	if (gameData.loaded && gameData.expiration < Date.now()) {
+		// TODO:
+		//  	consider alerting the user if I'm not changing anything
+		//  	maybe just confirm it's loaded in?
+
+		// reset the sides
+		for (let i=0;i<data.sides.length;i++) {
+			// go through all the sides
+			for (let j=0;j<data.sides[i].length;j++) {
+				// go through every letter
+				inputs[i*3 + j].value = data.sides[i][j].toLowerCase();
+				inputs[i*3 + j].classList.remove("isEmpty");
+			}
+		}
+		return;
+	}
 	blockClicks();
-	// TODO:
-	// I should probably cache this somehow
+	gameData.loading = true;
 
 	const customServer = "https://us-central1-letterboxedsolver.cloudfunctions.net/api/api"
 	fetch(customServer).then(response => {
@@ -88,10 +107,19 @@ function getTodaysPuzzle () {
 				inputs[i*3 + j].classList.remove("isEmpty");
 			}
 		}
+
+		gameData.sides = data.sides;
+		gameData.dictionary = data.dictionary.map( (word) => word.toLowerCase() );
+		gameData.todaysSolution = data.ourSolution;
+		gameData.expiration = data.expiration; // this is unix epoch time
+		gameData.loading = false;
+		gameData.loaded = true;
+
 		unblockClicks();
 		displaySelectSolve();
 	}).catch((error) => {
 		unblockClicks();
 		console.log(error);
+		gameData.loading = false;
 	});
 }
