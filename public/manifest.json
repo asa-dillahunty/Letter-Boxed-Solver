@@ -1,0 +1,20 @@
+{
+	"short_name": "Asa's Letterboxed Solver",
+	"name": "Asa's Letterboxed Solver",
+	"icons": [
+	  {
+		"src": "images/favicon.ico",
+		"sizes": "48x48",
+		"type": "image/x-icon"
+	  },
+	  {
+		"src": "images/logo192.png",
+		"type": "image/png",
+		"sizes": "192x192"
+	  }
+	],
+	"start_url": ".",
+	"display": "standalone",
+	"theme_color": "#000000",
+	"background_color": "#ffffff"
+}  

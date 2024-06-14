@@ -19,7 +19,7 @@ const scrapePuzzleData = require("./scrapeData");
 const app = express();
 
 app.use(cors({
-	origin: "https://letterboxed.asadillahunty.com", // Allow requests from this origin
+	origin: "https://letterboxed.asadillahunty.com/", // Allow requests from this origin
 	methods: ["GET"], // Allow only GET requests
 	allowedHeaders: ["Content-Type"], // Allow only specified headers
 }));
