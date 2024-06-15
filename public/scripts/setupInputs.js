@@ -121,5 +121,6 @@ function getTodaysPuzzle () {
 		unblockClicks();
 		console.log(error);
 		gameData.loading = false;
+		window.alert("Failed to get today's puzzle.")
 	});
 }

@@ -4,33 +4,27 @@ const cheerio = require("cheerio");
 
 const NYTUrl = "https://www.nytimes.com/puzzles/letter-boxed";
 async function scrapePuzzleData() {
-	let response, html, $, scriptText, gameData;
 	try {
-		response = await axios.get(NYTUrl);
-		html = response.data;
+		const response = await axios.get(NYTUrl);
+		const html = response.data;
 		
 		// Load HTML into cheerio
-		$ = cheerio.load(html);
-	} catch (error) {
-		console.error("Error fetching puzzle data:", error);
-		return null;
-	}
+		const $ = cheerio.load(html);
 
-	try {
-		scriptText = $("script").filter((i, el) => {
+		const scriptText = $("script").filter((i, el) => {
 			return $(el).html().includes("window.gameData");
 		}).html();
 
 		if (scriptText) {
 			// Parse the JSON object
-			gameData = JSON.parse(scriptText.split("=")[1]);
+			const gameData = JSON.parse(scriptText.split("=")[1]);
 			return gameData;
 		} else {
 			console.error("Failed to extract gameData object from HTML.");
 			return null;
 		}
 	} catch (error) {
-		console.error("Error parsing puzzle data:", error);
+		console.error("Error fetching puzzle data:", error);
 		return null;
 	}
 }
