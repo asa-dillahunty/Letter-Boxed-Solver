@@ -10,9 +10,16 @@ function startSolve() {
 		// hide ghost on finish
 		const ghostCanvas = document.getElementById('GhostCanvas');
 		if (ghostCanvas) ghostCanvas.style.display = 'none';
-
-		if (areSolutions) document.getElementById("solutionBox").style = "margin-top: 10px;border-top:2px solid var(--black);";
-		else document.getElementById("solutionBox").style = "margin-top: 0; border-top: none";
+		
+		if (areSolutions) {
+			document.getElementById("solutionBox").style = "margin-top: 10px";
+			outputDivHeader.style.borderBottom
+			outputDivHeader.style.borderBottom = "2px solid var(--black)";
+		}
+		else {
+			document.getElementById("solutionBox").style = "margin-top: 0";
+			outputDivHeader.style.borderBottom = "none";
+		}
 	});
 }
 
@@ -58,6 +65,7 @@ async function solve() {
 		}
 	}
 	else if (isTodaysPuzzle) { // use todays dictionary
+		console.log("is today's puzzle");
 		while (solutions.length < 1 && depth < 5) {
 			depth++;
 			solutions = await findSolutions(depth, gameData.dictionary);
@@ -117,6 +125,7 @@ function getCustomValues() {
 
 function getIsTodaysPuzzle(letters) {
 	// if exit here - this may not be true, but we don't have the dictionary anyway
+	console.log("Game Data: ", gameData);
 	if (!gameData || !gameData.loaded || !gameData.sides) return false;
 
 	const inputLettersSorted = [
@@ -135,6 +144,8 @@ function getIsTodaysPuzzle(letters) {
 
 	inputLettersSorted.sort();
 	NYTGameLettersSorted.sort();
+
+	console.log(inputLettersSorted, NYTGameLettersSorted);
 
 	for (let i=0;i<4;i++) {
 		if (!inputLettersSorted[i].every((value,index) => value === NYTGameLettersSorted[i][index])) return false;

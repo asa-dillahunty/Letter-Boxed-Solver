@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 		
 		<link rel="icon" href="images/favicon.ico" />
-		<meta name="description" content="Solver for Letter Boxed, a game from The New York Times. Provides possible solutions.">
+		<meta name="description" content="Solver for Letter Boxed, a game from The New York Times.">
 		<meta name="author" content="Asa Dillahunty">
 		<meta name="theme-color" content="#000000" />
 		
@@ -17,8 +17,8 @@
 	</head>
 	<body>
 		<header>
-			<h1>Letter Boxed</h1>
-			<h2>Solver</h2>
+			<h1>Letter Boxed <span class="header-broken">Solver</span></h1>
+			<h2>Instant Solutions for the NYT Game</h2>
 		</header>
 		<main>
 			<div id="click-blocker" class="unblocked"></div>
@@ -64,7 +64,6 @@
 				<input name="maxDepth" id="maxDepth" type="number">
 				<label for="dictionary">Dictionary</label>
 				<select name="dictionary" id="dictionary"></select>
-
 			</div>
 
 			<div class="solutionBoxContainer">
@@ -73,10 +72,69 @@
 				</div>
 				<canvas id="GhostCanvas" width="266px" height="273px" style="display: none;margin: auto;"></canvas>
 			</div>
+
+			<section class="info-box">
+				<h3>What is this?</h3>
+				<h4>About the Game</h4>
+				<p>
+					Letter Boxed is a game from
+					<a href="https://www.nytimes.com/puzzles/letter-boxed" id="NYTLink">
+						The New York Times
+					</a>
+					in which players make words by connecting letters from 
+					different sides of a four sided box, hence the name.
+					The objective is to create words using all of the letters available.
+				</p>
+
+				<h4>
+					Rules of the game:
+					(<a href="https://help.nytimes.com/hc/en-us/articles/360029050872-Word-Games-and-Logic-Puzzles#:~:text=The%20objective%20of%20LetterBoxed%20is,be%20from%20the%20same%20side.">1</a>)
+				</h4>
+				<ul>
+					<li>Connect letters to spell words.</li>
+					<li>Words must be at least 3 letters long. </li>
+					<li>Letters can be reused, but consecutive letters cannot be from the same side. </li>
+					<li>The last letter of a word becomes the first letter of the next word (e.g. HERE > EVERY > YEAR). </li>
+					<li>Words cannot be proper nouns or hyphenated.</li>
+				</ul>
+
+				<h4>About the Solver</h4>
+				<p>
+					This tool was created to help solve the NYT puzzles using a word list
+					I found online. Unfortunately I could not find NYT's dictionary, 
+					so some of the words displayed by the solver might not always be valid.
+					The solver also does not allow puzzle to have repeated letters, although
+					the NYT Letter Boxed game does not explicitly state that, this was a
+					restriction I added.
+				</p>
+			</section>
 		</main>
 	</body>
 	<script src="scripts/solver.js"></script>
 	<script src="scripts/setupInputs.js"></script>
 	<script src="scripts/animateGhost.js"></script>
 	<script src="scripts/simpleKonami.js"></script>
+	<script type="module">
+		// Import the functions you need from the SDKs you need
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+		import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-analytics.js";
+		// TODO: Add SDKs for Firebase products that you want to use
+		// https://firebase.google.com/docs/web/setup#available-libraries
+	  
+		// Your web app's Firebase configuration
+		// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+		const firebaseConfig = {
+		  apiKey: "AIzaSyA85zSFtr2IUggJGtS2i7QQm6WjmaEvVMI",
+		  authDomain: "letterboxedsolver.firebaseapp.com",
+		  projectId: "letterboxedsolver",
+		  storageBucket: "letterboxedsolver.appspot.com",
+		  messagingSenderId: "646835044511",
+		  appId: "1:646835044511:web:76dd25835f5d2ab4c1a2aa",
+		  measurementId: "G-QT5SW54B41"
+		};
+	  
+		// Initialize Firebase
+		const app = initializeApp(firebaseConfig);
+		const analytics = getAnalytics(app);
+	  </script>
 </html>
