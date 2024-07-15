@@ -117,6 +117,7 @@ function getTodaysPuzzle () {
 		
 		gameData.dictionaryMap = {};
 		gameData.dictionary.forEach((word) => {
+			if (!gameData.dictionaryMap[word[0]]) finalDict[word[0]] = [];
 			gameData.dictionaryMap[word[0]].push(word);
 		});
 
