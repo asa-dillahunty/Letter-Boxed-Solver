@@ -114,6 +114,11 @@ function getTodaysPuzzle () {
 		gameData.expiration = data.expiration; // this is unix epoch time
 		gameData.loading = false;
 		gameData.loaded = true;
+		
+		gameData.dictionaryMap = {};
+		gameData.dictionary.forEach((word) => {
+			gameData.dictionaryMap[word[0]].push(word);
+		});
 
 		unblockClicks();
 		displaySelectSolve();

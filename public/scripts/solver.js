@@ -68,7 +68,7 @@ async function solve() {
 		console.log("Using today's dictionary!", gameData);
 		while (solutions.length < 1 && depth < 5) {
 			depth++;
-			solutions = await findSolutions(depth, gameData.dictionary);
+			solutions = await findSolutions(depth, gameData.dictionaryMap);
 		}
 	}
 	else { // normal, standard option
@@ -126,7 +126,6 @@ function getCustomValues() {
 function getIsTodaysPuzzle(letters) {
 	// if exit here - this may not be true, but we don't have the dictionary anyway
 	if (!gameData || !gameData.loaded || !gameData.sides) return false;
-	return false;
 	
 	const inputLettersSorted = [
 		letters[0].sort(),
