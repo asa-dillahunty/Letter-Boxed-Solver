@@ -65,7 +65,7 @@ async function solve() {
 		}
 	}
 	else if (isTodaysPuzzle) { // use todays dictionary
-		console.log("is today's puzzle");
+		console.log("Using today's dictionary!");
 		while (solutions.length < 1 && depth < 5) {
 			depth++;
 			solutions = await findSolutions(depth, gameData.dictionary);
@@ -125,14 +125,13 @@ function getCustomValues() {
 
 function getIsTodaysPuzzle(letters) {
 	// if exit here - this may not be true, but we don't have the dictionary anyway
-	console.log("Game Data: ", gameData);
 	if (!gameData || !gameData.loaded || !gameData.sides) return false;
-
+	
 	const inputLettersSorted = [
-		letters.slice(0,3).sort(),
-		letters.slice(3,6).sort(),
-		letters.slice(6,9).sort(),
-		letters.slice(9).sort()
+		letters[0].sort(),
+		letters[1].sort(),
+		letters[2].sort(),
+		letters[3].sort()
 	];
 
 	const NYTGameLettersSorted = [
@@ -144,8 +143,6 @@ function getIsTodaysPuzzle(letters) {
 
 	inputLettersSorted.sort();
 	NYTGameLettersSorted.sort();
-
-	console.log(inputLettersSorted, NYTGameLettersSorted);
 
 	for (let i=0;i<4;i++) {
 		if (!inputLettersSorted[i].every((value,index) => value === NYTGameLettersSorted[i][index])) return false;
