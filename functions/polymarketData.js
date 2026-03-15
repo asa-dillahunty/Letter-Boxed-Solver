@@ -1,4 +1,3 @@
-/* eslint-disable */
 async function getBySlug(slug) {
   try {
     const options = { method: "GET" };
@@ -18,4 +17,3 @@ async function getBySlug(slug) {
 }
 
 module.exports = getBySlug;
-/* eslint-enable */

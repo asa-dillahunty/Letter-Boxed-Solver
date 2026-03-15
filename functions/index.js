@@ -1,4 +1,3 @@
-/* eslint-disable */
 /**
  * Import function triggers from their respective submodules:
  *
@@ -17,6 +16,8 @@ const cors = require("cors");
 const scrapePuzzleData = require("./scrapeData");
 const getBySlug = require("./polymarketData");
 
+functions.setGlobalOptions({ maxInstances: 2 });
+
 const app = express();
 
 app.use(
@@ -25,10 +26,13 @@ app.use(
       "https://letterboxed.asadillahunty.com/",
       "https://www.asadillahunty.com/",
     ], // Allow requests from these origins
+    // origin: true, // for testing only
     methods: ["GET"], // Allow only GET requests
     allowedHeaders: ["Content-Type"], // Allow only specified headers
   }),
 );
+
+// app.options("*", cors({ origin: true })); // for local testing
 
 // Define route to fetch puzzle data
 app.get("/api/", async (_req, res) => {
@@ -55,6 +59,26 @@ app.get("/api/polymarket/:slug", async (req, res) => {
     console.error("Error fetching event data:", error);
     res.status(500).json({ error: "Internal server error" });
   }
+  // const slug = req.params.slug;
+  // const options = { method: "GET" };
+
+  // console.log("Polymarket slug: ", slug);
+  // try {
+  //   const response = await fetch(
+  //     `https://gamma-api.polymarket.com/events/slug/${slug}`,
+  //     options,
+  //   );
+
+  //   if (!response.ok) {
+  //     throw new Error(`Polymarket API error: ${response.status}`);
+  //   }
+
+  //   const data = await response.json();
+  //   return data;
+  // } catch (error) {
+  //   console.error("Error getting event data:", error);
+  //   return null;
+  // }
 });
 
 app.get("/api/hello", (_req, res) => {
@@ -62,4 +86,3 @@ app.get("/api/hello", (_req, res) => {
 });
 
 exports.api = functions.https.onRequest(app);
-/* eslint-enable */
